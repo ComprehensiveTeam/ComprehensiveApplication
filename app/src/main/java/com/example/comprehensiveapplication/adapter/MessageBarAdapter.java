@@ -1,5 +1,6 @@
 package com.example.comprehensiveapplication.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.comprehensiveapplication.ChatUIActivity;
 import com.example.comprehensiveapplication.R;
 import com.example.comprehensiveapplication.data.bean.MessageBar;
 
@@ -44,12 +46,17 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_bar_item,parent,false);
-        ViewHolder holder = new ViewHolder(view);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_bar_item, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int position = holder.getAdapterPosition();
+                if (position == 1) {
+                    Intent intent = new Intent(view.getContext(), ChatUIActivity.class);
+                    //intent.putExtra("getsocketInstance",getsocketInstance);
+                    view.getContext().startActivity(intent);
+                }
             }
         });
         return holder;

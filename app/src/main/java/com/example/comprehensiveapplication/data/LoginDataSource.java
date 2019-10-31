@@ -2,6 +2,7 @@ package com.example.comprehensiveapplication.data;
 
 import com.example.comprehensiveapplication.data.model.LoggedInUser;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
@@ -13,6 +14,7 @@ public class LoginDataSource {
 
         try {
             // TODO: handle loggedInUser authentication
+            LoggedInUser user = new LoggedInUser(username, username);
             LoggedInUser fakeUser =
                     new LoggedInUser(
                             java.util.UUID.randomUUID().toString(),

@@ -1,5 +1,6 @@
 package com.example.comprehensiveapplication.download;
 
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;

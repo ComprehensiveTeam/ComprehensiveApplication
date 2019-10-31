@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 import com.example.comprehensiveapplication.data.bean.Output;
 import com.example.comprehensiveapplication.download.DownloadService;
+import com.example.comprehensiveapplication.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -46,6 +47,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
     DownloadService.DownloadBinder downloadBinder;
     ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         checkPermission();
-        checkVersion();
+        //startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        //checkVersion();
     }
 
     @Override
