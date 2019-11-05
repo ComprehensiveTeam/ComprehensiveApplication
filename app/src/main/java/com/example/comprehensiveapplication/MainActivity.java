@@ -59,7 +59,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
+    private boolean isLoggined = false;
     DownloadService.DownloadBinder downloadBinder;
     ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName componentName) {
 
         }
+
     };
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -117,6 +118,12 @@ public class MainActivity extends AppCompatActivity {
         checkPermission();
         //startActivity(new Intent(MainActivity.this, LoginActivity.class));
         //checkVersion();
+        if (!isLoggined) {
+            Intent intent1 = new Intent(MainActivity.this, MyLoginActivity.class);
+            intent1.putExtra("isLoggined", isLoggined);
+            startActivity(intent1);
+
+        }
     }
 
     @Override

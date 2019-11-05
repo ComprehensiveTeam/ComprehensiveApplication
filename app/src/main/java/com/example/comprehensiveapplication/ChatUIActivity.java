@@ -25,6 +25,7 @@ public class ChatUIActivity extends AppCompatActivity {
     Socket socket;
     int r = 0;
     int d = 0;
+    int s = 0;
     /*class CreateSocket{
         private Socket socket = null;
 
@@ -71,11 +72,11 @@ public class ChatUIActivity extends AppCompatActivity {
                     socket = SingleSocket.getSocket();
                     if (receiver.receive(socket)) {
                         Log.d("cxdebug", "receiving" + (++r));
-                        try {
+                        /*try {
                             Thread.sleep(messageTimeDelay);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
-                        }
+                        }*/
                         Msg msg = new Msg(receiver.msg, TYPE_RECEIVED);
                         msgList.add(msg);
 
@@ -83,10 +84,12 @@ public class ChatUIActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
+
+                                adapter.notifyItemInserted(msgList.size() - 1);
                                 Log.d("cxdebug", "drawing" + (++d));
-                                /*adapter.notifyItemInserted(msgList.size() - 1);
-                                msgRecyclerView.scrollToPosition(msgList.size() - 1);*/
-                                draw();
+                                msgRecyclerView.scrollToPosition(msgList.size() - 1);
+                                Log.d("cxdebug", "scrolling" + (++s));
+                                //draw();
 
                             }
                         });

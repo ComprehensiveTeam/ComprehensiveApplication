@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChatUIActivity"></activity>
+        <activity android:name=".MyLoginActivity"></activity>
+        <activity android:name=".ChatUIActivity" />
 
         <service
             android:name=".service.UpdateIntentService"
