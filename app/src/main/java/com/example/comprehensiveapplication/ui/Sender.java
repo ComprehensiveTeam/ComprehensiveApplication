@@ -1,6 +1,8 @@
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.ui;
 
 import android.util.Log;
+
+import com.example.comprehensiveapplication.Utils.RequestStringsUtils;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,11 +30,12 @@ public class Sender {
         }*/
         try {
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            StringBuilder s = new StringBuilder();
-            s.append("account=" + account);
-            s.append("&msg=" + msg);
-            Log.d("cxdebug", "msg:" + s.toString());
-            out.writeUTF(s.toString());
+            RequestStringsUtils rsu = new RequestStringsUtils();
+            rsu.setRequestType(3);
+            rsu.setAccount(account);
+            rsu.addRequestCouple("receiver", "1");
+            rsu.setMsg(msg);
+            out.writeUTF(rsu.getRequestCouples());
 
         } catch (IOException e) {
             e.printStackTrace();

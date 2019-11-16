@@ -1,52 +1,35 @@
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.comprehensiveapplication.R;
+import com.example.comprehensiveapplication.SingleSocket;
 import com.example.comprehensiveapplication.adapter.MsgAdapter;
 import com.example.comprehensiveapplication.data.bean.Msg;
+import com.example.comprehensiveapplication.ui.Receiver;
+import com.example.comprehensiveapplication.ui.Sender;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.comprehensiveapplication.data.bean.Msg.TYPE_RECEIVED;
 
-public class ChatUIActivity extends AppCompatActivity {
+public class ChatUIActivity extends BaseActivity {
+    final static int messageTimeDelay = 100;
     Socket socket;
-    int r = 0;
-    int d = 0;
-    int s = 0;
-    /*class CreateSocket{
-        private Socket socket = null;
-
-        public Socket get(){
-            if(socket==null){
-                try {
-                    socket = new Socket("100.64.240.76",10443);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return socket;
-        }
-    }*/
-    private List<Msg> msgList = new ArrayList<>();
     EditText inputText;
+    private List<Msg> msgList = new ArrayList<>();
     private Button send;
     private RecyclerView msgRecyclerView;
     private MsgAdapter adapter;
-    final static int messageTimeDelay = 100;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +54,12 @@ public class ChatUIActivity extends AppCompatActivity {
                 while (true) {
                     socket = SingleSocket.getSocket();
                     if (receiver.receive(socket)) {
-                        Log.d("cxdebug", "receiving" + (++r));
                         /*try {
                             Thread.sleep(messageTimeDelay);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }*/
-                        Msg msg = new Msg(receiver.msg, TYPE_RECEIVED);
+                        Msg msg = new Msg(receiver.getMsg(), TYPE_RECEIVED);
                         msgList.add(msg);
 
                         runOnUiThread(new Runnable() {
@@ -86,10 +68,8 @@ public class ChatUIActivity extends AppCompatActivity {
 
 
                                 adapter.notifyItemInserted(msgList.size() - 1);
-                                Log.d("cxdebug", "drawing" + (++d));
                                 msgRecyclerView.scrollToPosition(msgList.size() - 1);
-                                Log.d("cxdebug", "scrolling" + (++s));
-                                //draw();
+
 
                             }
                         });
@@ -115,7 +95,7 @@ public class ChatUIActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Socket socket = SingleSocket.getSocket();
-                            Sender s = new Sender(socket, content, "account");
+                            Sender s = new Sender(socket, content, getIntent().getStringExtra("account"));
                             s.sendMessage();
                         }
                     }).start();
@@ -126,10 +106,10 @@ public class ChatUIActivity extends AppCompatActivity {
         });
     }
 
-    private synchronized void draw() {
+    /*private synchronized void draw() {
         adapter.notifyItemInserted(msgList.size() - 1);
         msgRecyclerView.scrollToPosition(msgList.size() - 1);
-    }
+    }*/
 
 
     @Override
@@ -138,8 +118,8 @@ public class ChatUIActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Sender sender = new Sender(SingleSocket.getSocket(), "exit", "1");
-                sender.sendMessage();
+                //Sender sender = new Sender(SingleSocket.getSocket(), "exit", "1");
+                //sender.sendMessage();
             }
         }).start();
 

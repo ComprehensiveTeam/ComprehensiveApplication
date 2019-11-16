@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!--安装app-->
 
     <application
         android:allowBackup="true"
@@ -28,8 +29,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MyLoginActivity"></activity>
-        <activity android:name=".ChatUIActivity" />
+        <activity android:name=".activity.BaseActivity"></activity>
+
+        <service
+            android:name=".service.CoreService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.SignUpActivity"
+            android:label="注册" />
+        <activity
+            android:name=".activity.SignInActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--<activity android:name=".deprecated.MyLoginActivity" />-->
+        <activity android:name=".activity.ChatUIActivity" />
 
         <service
             android:name=".service.UpdateIntentService"
@@ -39,10 +61,10 @@
             android:name="com.amap.api.v2.apikey"
             android:value="e13578871c5deb193ed73c920205c3ff" />
 
-        <activity android:name=".LBSActivity" />
+        <activity android:name=".activity.LBSActivity" />
 
         <service
-            android:name=".download.DownloadService"
+            android:name=".service.DownloadService"
             android:enabled="true"
             android:exported="true" />
 
@@ -50,20 +72,24 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name="com.amap.api.location.APSService"
             android:foregroundServiceType="location"
             tools:targetApi="q" />
+        <provider
+            android:authorities="com.example.comprehensiveapplication.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
 
 </manifest>

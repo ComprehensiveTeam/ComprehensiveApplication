@@ -1,4 +1,4 @@
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.Utils;
 
 public class MyUtils {
     public void Utils(){

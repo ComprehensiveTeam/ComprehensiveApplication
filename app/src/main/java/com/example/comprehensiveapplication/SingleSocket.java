@@ -20,7 +20,7 @@ public class SingleSocket {
             public void run() {
                 try {
                     Log.d("cxdebug", "正在连接服务器");
-                    socket = new Socket("100.64.240.76", 10443);
+                    socket = new Socket("193.112.188.71", 10443);
                     Log.d("cxdebug", "连接服务器成功");
                     isFinished = true;
                 } catch (IOException e) {
@@ -38,4 +38,6 @@ public class SingleSocket {
         }
         return socket;
     }
+
+
 }

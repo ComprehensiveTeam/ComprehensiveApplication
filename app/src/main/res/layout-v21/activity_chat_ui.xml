@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#d8e0e8"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/msg_recycler_view"
@@ -22,7 +24,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Type something here"
             android:maxLines="2" />
 
         <Button
@@ -33,5 +34,6 @@
 
 
     </LinearLayout>
+
 
 </LinearLayout>

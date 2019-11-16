@@ -1,5 +1,6 @@
 package com.example.comprehensiveapplication.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.comprehensiveapplication.ChatUIActivity;
+import com.example.comprehensiveapplication.activity.ChatUIActivity;
 import com.example.comprehensiveapplication.R;
 import com.example.comprehensiveapplication.data.bean.MessageBar;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.ViewHolder> {
 
     private List<MessageBar> messageBarList;
+
+    private Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -39,8 +44,10 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
             messageNum = itemView.findViewById(R.id.message_num);
         }
     }
-    public MessageBarAdapter(List<MessageBar> messageBarList) {
+
+    public MessageBarAdapter(List<MessageBar> messageBarList, Context context) {
         this.messageBarList = messageBarList;
+        this.context = context;
     }
 
     @NonNull
@@ -52,11 +59,23 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                if (position == 1) {
-                    Intent intent = new Intent(view.getContext(), ChatUIActivity.class);
-                    //intent.putExtra("getsocketInstance",getsocketInstance);
-                    view.getContext().startActivity(intent);
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        intent = new Intent(view.getContext(), ChatUIActivity.class);
+                        intent.putExtra("requestType", 0);
+                        intent.putExtra("account", context.getSharedPreferences("loginUser", MODE_PRIVATE).getString("account", ""));
+                        intent.putExtra("receiver", 1);
+                        view.getContext().startActivity(intent);
+                    case 1:
+                        intent = new Intent(view.getContext(), ChatUIActivity.class);
+                        intent.putExtra("requestType", 3);
+                        intent.putExtra("account", context.getSharedPreferences("loginUser", MODE_PRIVATE).getString("account", ""));
+                        intent.putExtra("receiver", 1);
+                        view.getContext().startActivity(intent);
+                        break;
                 }
+
             }
         });
         return holder;
@@ -67,6 +86,9 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
         MessageBar messageBar = messageBarList.get(position);
         holder.profilePhotoId.setImageResource(messageBar.getProfilePhotoId());
         holder.avatar.setText(messageBar.getAvatar());
+        holder.messageOutline.setText(messageBar.getMessageOutline());
+        holder.receivedTime.setText(messageBar.getReceivedTime());
+        holder.messageNum.setText(String.valueOf(messageBar.getMessageNum()));
 
     }
 

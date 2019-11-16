@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.Utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

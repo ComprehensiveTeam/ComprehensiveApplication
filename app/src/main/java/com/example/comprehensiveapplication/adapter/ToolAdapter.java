@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.comprehensiveapplication.LBSActivity;
+import com.example.comprehensiveapplication.activity.LBSActivity;
 import com.example.comprehensiveapplication.R;
 import com.example.comprehensiveapplication.data.bean.Tool;
 

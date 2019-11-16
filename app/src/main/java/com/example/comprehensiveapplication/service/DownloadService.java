@@ -1,20 +1,29 @@
-package com.example.comprehensiveapplication.download;
+package com.example.comprehensiveapplication.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.FileProvider;
 
+import com.example.comprehensiveapplication.listener.DownloadListener;
 import com.example.comprehensiveapplication.R;
+import com.example.comprehensiveapplication.task.DownloadTask;
 
 import java.io.File;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class DownloadService extends Service {
 
@@ -33,6 +42,17 @@ public class DownloadService extends Service {
             stopForeground(true);
             getNotificationManager().notify(1,getNotification("Download Success", -1));
             Toast.makeText(DownloadService.this, "Download Success", Toast.LENGTH_SHORT).show();
+            Intent toInstall = new Intent(Intent.ACTION_VIEW);
+            toInstall.setFlags(FLAG_ACTIVITY_NEW_TASK);
+            String fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
+            File file = new File(getExternalFilesDir(DIRECTORY_DOWNLOADS) + fileName);
+            //String directory = Environment.getDownloadCacheDirectory().getPath();
+            Uri apkUri = FileProvider.getUriForFile(DownloadService.this, "com.example.comprehensiveapplication.fileprovider", file);
+            Log.d("cxdebug", "ur1:" + apkUri);
+            Log.d("cxdebug", "读取路径:" + file);
+            toInstall.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            toInstall.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            startActivity(toInstall);
         }
 
         @Override
@@ -73,10 +93,11 @@ public class DownloadService extends Service {
     public class DownloadBinder extends Binder {
 
         public void startDownload(String url) {
+            Log.d("cxdebug", "dT:" + downloadTask);
             if (downloadTask == null) {
                 downloadUrl = url;
                 downloadTask = new DownloadTask(listener);
-                downloadTask.execute(downloadUrl);
+                downloadTask.execute(downloadUrl, DownloadService.this);
                 startForeground(1, getNotification("Downloading...",0));
                 Toast.makeText(DownloadService.this, "Downloading...", Toast.LENGTH_SHORT).show();
             }

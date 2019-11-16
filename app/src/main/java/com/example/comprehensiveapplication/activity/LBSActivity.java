@@ -1,4 +1,4 @@
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -28,11 +27,13 @@ import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.example.comprehensiveapplication.R;
+import com.example.comprehensiveapplication.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LBSActivity extends AppCompatActivity {
+public class LBSActivity extends BaseActivity {
 
     private TextView positionText;
     private TextView debug;

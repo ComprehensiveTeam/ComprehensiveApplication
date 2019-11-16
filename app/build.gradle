@@ -5,10 +5,10 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.comprehensiveapplication"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0.0.191025_Alpha"
+        versionCode 2
+        versionName "1.0.0.20191115_alpha"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     //加载资源
@@ -18,7 +18,7 @@ android {
     //读取文件
     def sdkDir = properties.getProperty('key.file')
     //读取字段
-    def keyfile = file(sdkDir)
+    def key_file = file(sdkDir)
     def key_keyAlias = properties.getProperty('keyAlias')
     def key_keyPassword = properties.getProperty('keyPassword')
     def key_storePassword = properties.getProperty('storePassword')
@@ -30,7 +30,7 @@ android {
             keyPassword key_keyPassword
         }*/
         release {
-            storeFile keyfile
+            storeFile key_file
             storePassword key_storePassword
             keyAlias key_keyAlias
             keyPassword key_keyPassword
@@ -50,7 +50,7 @@ android {
         release {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            if (keyfile.exists()) {
+            if (key_file.exists()) {
                 signingConfig signingConfigs.release
             }
         }

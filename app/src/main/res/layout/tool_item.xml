@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
-    android:background="@drawable/linerlayout_water_selector"
+    android:background="@drawable/linearlayout_water_selector"
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical">

@@ -1,21 +1,28 @@
-package com.example.comprehensiveapplication.download;
+package com.example.comprehensiveapplication.task;
 
-import android.media.Image;
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+
+import androidx.core.content.FileProvider;
+
+import com.example.comprehensiveapplication.listener.DownloadListener;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.io.Serializable;
+import java.net.URI;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class DownloadTask extends AsyncTask<String, Integer, Integer> {
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
+
+public class DownloadTask extends AsyncTask<Object, Integer, Integer> {
 
     public static final int TYPE_SUCCESS = 0;
     public static final int TYPE_FAILED = 1;
@@ -32,21 +39,27 @@ public class DownloadTask extends AsyncTask<String, Integer, Integer> {
     }
 
     @Override
-    protected Integer doInBackground(String... strings) {
+    protected Integer doInBackground(Object... objects) {
         InputStream is = null;
         RandomAccessFile savedFile = null;
         File file = null;
+        String para0 = objects[0].toString();
+        Log.d("cxdebug", objects[1].toString());
+        Context context = (Context) objects[1];
         try {
             long downloadedLength = 0;
-            String downloadUrl = strings[0];
+            String downloadUrl = para0;
             String fileName = downloadUrl.substring(downloadUrl.lastIndexOf("/"));
             //String directory = Environment7y.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS+"/.APP_Debug_Dir").getPath();
-            String directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+            //String directory = Environment.getExternalStoragePublicDirectory(DIRECTORY_DOWNLOADS).getPath();
+
+            ///Log.d("cxdebug","downloadDir:"+	DIRECTORY_DOWNLOADS);
             //String directory = Environment.getExternalStorageDirectory().getPath() + "/Test01";
             //String directory = "/storage/emulated/0/cxdebug";
             //String directory = "/storage/130B-0E0A/Download";
-            Log.d("cxdebug", "dir:" + directory);
-            file = new File(directory + fileName);
+            //Log.d("cxdebug", "dir:" + directory);
+            file = new File(context.getExternalFilesDir(DIRECTORY_DOWNLOADS), fileName);
+            Log.d("cxdebug", "下载路径" + file);
             //下面开始判断是否使用断点续传
             if (file.exists()) {//当文件存在时（可能不完整）， 已下载长度=当前文件长度
                 downloadedLength = file.length();

@@ -1,19 +1,19 @@
-package com.example.comprehensiveapplication;
+package com.example.comprehensiveapplication.Utils;
 
 
 public class AnalyseReturnData {
-    public String opt(String returnData, String key) {
+    public static String opt(String returnData, String key) {
         String value = findInCp(detachData(returnData), key);
         return value;
     }
 
-    public String[] detachData(String returnData) {
+    static String[] detachData(String returnData) {
         String[] cp = returnData.split("&");
 
         return cp;
     }
 
-    public String findInCp(String[] cp, String key) {
+    static String findInCp(String[] cp, String key) {
         String value = "";
         for (int i = 0; i < cp.length; i++) {
 

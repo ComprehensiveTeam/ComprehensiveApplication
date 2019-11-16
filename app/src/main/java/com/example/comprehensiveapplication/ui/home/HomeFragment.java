@@ -4,19 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comprehensiveapplication.R;
 import com.example.comprehensiveapplication.adapter.MessageBarAdapter;
-import com.example.comprehensiveapplication.adapter.ToolAdapter;
 import com.example.comprehensiveapplication.data.bean.MessageBar;
 
 import java.util.ArrayList;
@@ -44,14 +39,19 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = root.findViewById(R.id.message_bars);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        MessageBarAdapter adapter = new MessageBarAdapter(messageBarList);
+        MessageBarAdapter adapter = new MessageBarAdapter(messageBarList, this.getActivity());
         recyclerView.setAdapter(adapter);
         return root;
     }
 
     private void initMessageBar() {
-        for (int i = 0; i < 16; i++) {
-            MessageBar messageBar = new MessageBar(R.mipmap.ic_launcher,"小明的亲戚","在吗？","21:21",1);
+        MessageBar messageBar;
+        messageBar = new MessageBar(R.mipmap.ic_launcher, "系统消息", "系统给你发来了一条消息", "18:59", 1);
+        messageBarList.add(messageBar);
+        messageBar = new MessageBar(R.mipmap.ic_launcher, "公共频道", "有人给你发来了一条消息", "18:59", 1);
+        messageBarList.add(messageBar);
+        for (int i = 2; i < 16; i++) {
+            messageBar = new MessageBar(R.mipmap.ic_launcher, "小明的亲戚", "在吗？", "21:21", 1);
             messageBarList.add(messageBar);
         }
     }

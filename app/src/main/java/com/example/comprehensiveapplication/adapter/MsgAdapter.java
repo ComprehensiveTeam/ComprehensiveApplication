@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.comprehensiveapplication.R;
@@ -27,8 +28,11 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout leftLayout;
-        LinearLayout rightLayout;
+        //早期
+        //LinearLayout leftLayout;
+        //LinearLayout rightLayout;
+        ConstraintLayout leftLayout;
+        ConstraintLayout rightLayout;
         TextView leftMsg;
         TextView rightMsg;
 
@@ -44,7 +48,7 @@ public class MsgAdapter extends RecyclerView.Adapter<MsgAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.msg_item2, parent, false);
         return new ViewHolder(view);
 
     }
