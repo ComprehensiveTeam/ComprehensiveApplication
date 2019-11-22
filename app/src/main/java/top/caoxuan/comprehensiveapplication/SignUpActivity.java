@@ -63,7 +63,7 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        // findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
         SignUpTask signUpTask;
         switch (v.getId()) {
             case R.id.sign_up_by_phone:

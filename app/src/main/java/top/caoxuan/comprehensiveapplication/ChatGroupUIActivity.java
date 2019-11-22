@@ -33,14 +33,15 @@ import top.caoxuan.comprehensiveapplication.task.SaveMessageTask;
 public class ChatGroupUIActivity extends BaseActivity implements View.OnClickListener {
     EditText inputText;
     private static List<IMessage> iMessageList = new ArrayList<>();
-    static List<IMessage> subIMessageList = new ArrayList<>();
+    private static List<IMessage> subIMessageList = new ArrayList<>();
     private RecyclerView msgRecyclerView;
     private MessageAdapter messageAdapter;
     //private MsgAdapter adapter;
     private SharedPreferences pref;
-    static int self;
-    static int groupId;
-    final static int MAX_MESSAGE = 10;
+    private static int self;
+    private static int token;
+    private static int groupId;
+    private final static int MAX_MESSAGE = 10;
 
     ChatGroupUIListener chatGroupUIListener = new ChatGroupUIListener() {
         @Override
@@ -129,6 +130,7 @@ public class ChatGroupUIActivity extends BaseActivity implements View.OnClickLis
         String spName = getSharedPreferences("UserProfile", MODE_PRIVATE).getString("Default", "");
         pref = getSharedPreferences(spName, MODE_PRIVATE);
         self = pref.getInt("Self", 0);
+        token = pref.getInt("Token", 0);
         groupId = getIntent().getIntExtra("GroupId", 0);
         LitePal.initialize(this.getApplicationContext());
         setContentView(R.layout.activity_chat_group_ui);
@@ -271,11 +273,11 @@ public class ChatGroupUIActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    private void toSend() {
+    private void toSend() {//发送前的准备
         String message = inputText.getText().toString();
         if (!"".equals(message)) {
             IMessage IMessage = new IMessage(ACTION_MESSAGE_SEND, message);
-            IContent iContent = new IContent(self, 1, message);
+            IContent iContent = new IContent(self, 1, message, token);
             Log.d("cxDebug", "准备更新UI");
             inputText.setText("");
             insertItem(IMessage);

@@ -8,6 +8,7 @@ public class IContent {
     int uid;
     int receiver;
     String message;
+    int token;
 
     /**
      * uid：发送者
@@ -18,6 +19,13 @@ public class IContent {
         this.uid = uid;
         this.receiver = receiver;
         this.message = message;
+    }
+
+    public IContent(int uid, int receiver, String message, int token) {
+        this.uid = uid;
+        this.receiver = receiver;
+        this.message = message;
+        this.token = token;
     }
 
     public int getUid() {
@@ -42,5 +50,13 @@ public class IContent {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
     }
 }

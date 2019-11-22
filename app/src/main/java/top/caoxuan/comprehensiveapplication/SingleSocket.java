@@ -8,7 +8,7 @@ import java.net.Socket;
 public class SingleSocket {
     private static Socket socket;
     private static boolean isFinished = false;
-    private final static String host = "193.112.188.71";
+    private final static String host = "192.168.0.102";
     private final static int port = 10443;
     private static void cs() {
         isFinished = false;

@@ -27,7 +27,7 @@ public class Uid {
 
             DataInputStream dataInputStream = new DataInputStream(SingleSocket.getSocket().getInputStream());
             String returnData = dataInputStream.readUTF(dataInputStream);
-            String requestType = AnalyseReturnData.opt(returnData, "requestType");
+            String requestType = AnalyseReturnData.opt(returnData, "request_type");
             String uid = AnalyseReturnData.opt(returnData, "uid");
             if ("6".equals(requestType)) {
                 return Integer.parseInt(uid);

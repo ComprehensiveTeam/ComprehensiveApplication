@@ -124,12 +124,12 @@ public class ReceiveMessageTask extends AsyncTask<Object, Integer, Integer> impl
                     try {
                         System.err.println("returnData=" + returnData);
 
-                        requestType = Integer.parseInt(AnalyseReturnData.opt(returnData, "requestType"));
+                        requestType = Integer.parseInt(AnalyseReturnData.opt(returnData, "request_type"));
 
                     } catch (Exception e) {
                         System.err.println("returnData=" + returnData);
                         System.err.println("requestType错误");
-                        System.err.println(AnalyseReturnData.opt(returnData, "requestType"));
+                        System.err.println(AnalyseReturnData.opt(returnData, "request_type"));
                         return false;
                     }
                     if (requestType == TYPE_RELAY) {

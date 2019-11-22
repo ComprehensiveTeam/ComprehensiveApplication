@@ -1,7 +1,9 @@
 package top.caoxuan.comprehensiveapplication.listener;
 
-public interface SignInListener {
-    void onSuccess(int uid);
+import top.caoxuan.comprehensiveapplication.data.bean.IError;
 
-    void onFailed();
+public interface SignInListener {
+    void onSuccess(int self, int token);
+
+    void onFailed(IError iError);
 }

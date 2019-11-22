@@ -22,8 +22,10 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
+import top.caoxuan.comprehensiveapplication.data.bean.IError;
 import top.caoxuan.comprehensiveapplication.data.bean.User;
 import top.caoxuan.comprehensiveapplication.listener.SignInListener;
+import top.caoxuan.comprehensiveapplication.task.AutoSignInTask;
 import top.caoxuan.comprehensiveapplication.task.SignInTask;
 
 public class SignInActivity extends BaseActivity {
@@ -37,7 +39,8 @@ public class SignInActivity extends BaseActivity {
     SignInListener signInListener = new SignInListener() {
         @SuppressLint("ApplySharedPref")
         @Override
-        public void onSuccess(int self) {
+        public void onSuccess(int self, int token) {
+            Log.d("cxDebug", "SignInActivity:" + token);
             SharedPreferences defaultSP = getSharedPreferences("UserProfile", MODE_PRIVATE);
             SharedPreferences.Editor defaultEditor = defaultSP.edit();
             defaultEditor.putString("Default", String.valueOf(self));
@@ -45,6 +48,7 @@ public class SignInActivity extends BaseActivity {
             pref = getSharedPreferences(defaultSP.getString("Default", ""), MODE_PRIVATE);
             editor = pref.edit();
             editor.putInt("Self", self);
+            editor.putInt("Token", token);
             editor.putString("Account", accountEdit.getText().toString());
             editor.putBoolean("LoginStatus", true);
             //editor.putInt("self",);
@@ -60,8 +64,18 @@ public class SignInActivity extends BaseActivity {
         }
 
         @Override
-        public void onFailed() {
+        public void onFailed(IError iError) {
             Toast.makeText(SignInActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+            if (iError.getType() == TYPE_LOGIN) {
+
+            } else if (iError.getType() == TYPE_LOGIN_BY_TOKEN) {
+                editor = pref.edit();
+                editor.putBoolean("LoginStatus", false);
+                editor.apply();
+                Toast.makeText(SignInActivity.this, "身份信息失效，请重新登录", Toast.LENGTH_SHORT).show();
+
+            }
+
         }
     };
 
@@ -72,8 +86,12 @@ public class SignInActivity extends BaseActivity {
         pref = getSharedPreferences(spName, MODE_PRIVATE);
         //如果已登录过，则直接跳转至MainActivity
         if (pref.getBoolean("LoginStatus", false)) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            int self = pref.getInt("Self", 0);
+            int token = pref.getInt("Token", 0);
+            if (!(self == 0 || token == 0)) {//当两者都不为0时
+                AutoSignInTask autoSignInTask = new AutoSignInTask(signInListener, self, token);
+                autoSignInTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
         }
         setContentView(R.layout.activity_sign_in);
         requestPermission();
@@ -81,7 +99,7 @@ public class SignInActivity extends BaseActivity {
         passwordEdit = findViewById(R.id.password);
         rememberPass = findViewById(R.id.remember);
         TextView signUp = findViewById(R.id.sign_up);
-        boolean isRemember = pref.getBoolean("Remember_password", false);
+        boolean isRemember = pref.getBoolean("RememberPassword", false);
         Button signIn = findViewById(R.id.sign_in);
         String account = pref.getString("Account", "");
         accountEdit.setText(account);

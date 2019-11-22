@@ -1,15 +1,13 @@
 package top.caoxuan.comprehensiveapplication.utils;
 
-import android.util.Log;
-
-import top.caoxuan.comprehensiveapplication.data.bean.Output;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import top.caoxuan.comprehensiveapplication.data.bean.Output;
 
 public class JSONUtil {
     public static List<Output> parseWithJSONObject(String json) {
@@ -45,8 +43,8 @@ public class JSONUtil {
             apkData.setType(apkDataJSONObject.optString("type"));
             apkData.setSplits(apkDataJSONObject.optString("splits"));
             apkData.setVersionCode(apkDataJSONObject.optLong("versionCode"));
-            Log.d("cxDebug", "未封装的code:" + "" + apkDataJSONObject.optLong("versionCode"));
-            Log.d("cxDebug", "apkData.get:" + "" + apkData.getVersionCode());
+            /*Log.d("cxDebug", "未封装的code:" + "" + apkDataJSONObject.optLong("versionCode"));
+            Log.d("cxDebug", "apkData.get:" + "" + apkData.getVersionCode());*/
             apkData.setVersionName(apkDataJSONObject.optString("versionName"));
             apkData.setEnabled(apkDataJSONObject.optBoolean("enabled"));
             apkData.setFullName(apkDataJSONObject.optString("fullName"));
@@ -57,7 +55,7 @@ public class JSONUtil {
             //封装Output对象（把除了值类型的另外两个对象OutputType和ApkData封装）
             output.setOutputType(outputType);
             output.setApkData(apkData);
-            Log.d("cxDebug", "out.get.get:" + "" + output.getApkData().getVersionCode());
+            /*Log.d("cxDebug", "out.get.get:" + "" + output.getApkData().getVersionCode());*/
             //封装成OutputList对象
             outputList.add(output);
 

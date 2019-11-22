@@ -94,7 +94,7 @@ public class SignUpTask extends AsyncTask<Object, Integer, List<Object>> impleme
         try {
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
             String returnData = dataInputStream.readUTF();
-            String requestType = AnalyseReturnData.opt(returnData, "requestType");
+            String requestType = AnalyseReturnData.opt(returnData, "request_type");
             String result = AnalyseReturnData.opt(returnData, "result");
             String error = AnalyseReturnData.opt(returnData, "error");
             if ("2".equals(requestType) && "1".equals(result) && "99999".equals(error)) return true;
@@ -110,7 +110,7 @@ public class SignUpTask extends AsyncTask<Object, Integer, List<Object>> impleme
             DataInputStream in = new DataInputStream(socket.getInputStream());
             while (true) {
                 String returnData = in.readUTF();
-                String requestType = AnalyseReturnData.opt(returnData, "requestType");
+                String requestType = AnalyseReturnData.opt(returnData, "request_type");
                 if ("2".equals(requestType)) {
                     String result = AnalyseReturnData.opt(returnData, "result");
                     String error = AnalyseReturnData.opt(returnData, "error");
@@ -170,7 +170,7 @@ public class SignUpTask extends AsyncTask<Object, Integer, List<Object>> impleme
                     break;
             }*/
             rsu.setAccount(account);
-            rsu.addRequestCouple("verificationCode", vCode);
+            rsu.addRequestCouple("verification_code", vCode);
             rsu.setPassword(password);
             out.writeUTF(rsu.getRequestCouples());
             return waitSignUpResult();

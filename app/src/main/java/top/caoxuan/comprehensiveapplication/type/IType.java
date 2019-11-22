@@ -2,6 +2,12 @@ package top.caoxuan.comprehensiveapplication.type;
 
 public interface IType {
 
+    //Token登录
+    int TYPE_LOGIN_BY_TOKEN = 12;
+
+    int TYPE_RESULT_SUCCESS = 1;
+    int TYPE_RESULT_FAILED = 2;
+
     //系统消息 系统->用户
     //send: requestType=0&account=1&msg=xxx
     //receive: requestType=0&account=username&msg=xxx
@@ -26,7 +32,7 @@ public interface IType {
     int TYPE_SYNC = 5;
     //消息对应的解析词
     //消息类型
-    String TYPE = "requestType";
+    String TYPE = "request_type";
 
     //密码
     String PASSWORD = "password";

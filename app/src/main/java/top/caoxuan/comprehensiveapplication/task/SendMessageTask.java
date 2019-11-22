@@ -66,7 +66,6 @@ public class SendMessageTask extends AsyncTask<Object, Integer, Boolean> impleme
 
             try {
                 Socket socket = SingleSocket.getSocket();
-                /**暂时弃用，改用HashMap*/
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
            /* while ((len = in.read(bytes)) != -1) {
                 //注意指定编码格式，发送方和接收方一定要统一，建议使用UTF-8
@@ -75,16 +74,10 @@ public class SendMessageTask extends AsyncTask<Object, Integer, Boolean> impleme
                 RequestStringsUtils rsu = new RequestStringsUtils();
                 rsu.setRequestType(TYPE_RELAY);
                 rsu.setUid(iContent.getUid());
+                rsu.setToken(iContent.getToken());
                 rsu.setReceiver(iContent.getReceiver());
                 rsu.setMessage(iContent.getMessage());
                 dataOutputStream.writeUTF(rsu.getRequestCouples());
-                /*HashMap<String ,Object> map = new HashMap<>();
-                map.put(REQUEST_TYPE,TYPE_RELAY);
-                map.put(UID,iContent.getUid());
-                map.put(RECEIVER,iContent);
-                map.put(MESSAGE,iContent.getMessage());
-                ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-                outputStream.writeObject(map);*/
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();

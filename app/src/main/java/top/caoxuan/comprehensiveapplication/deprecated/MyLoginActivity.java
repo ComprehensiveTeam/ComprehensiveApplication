@@ -110,7 +110,7 @@ public class MyLoginActivity extends AppCompatActivity {
                             out.writeUTF(data.toString());
                             String returnData = new DataInputStream(socket.getInputStream()).readUTF();
                             Log.d("cxDebug", "data" + returnData);
-                            if ("1".equals(new AnalyseReturnData().opt(returnData, "requestType")) && "1".equals(new AnalyseReturnData().opt(returnData, "result"))) {
+                            if ("1".equals(new AnalyseReturnData().opt(returnData, "request_type")) && "1".equals(new AnalyseReturnData().opt(returnData, "result"))) {
                                 if (getIntent().getBooleanExtra("isLoggined", false))
                                     startActivity(new Intent(MyLoginActivity.this, MainActivity.class));
                                 finish();

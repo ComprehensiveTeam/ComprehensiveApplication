@@ -94,12 +94,12 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
                 switch (position) {
                     case 0:
                         intent = new Intent(mView.getContext(), cls);
-                        intent.putExtra("requestType", 0);
+                        intent.putExtra("request_type", 0);
                         intent.putExtra("receiver", 0);
                         mView.getContext().startActivity(intent);
                     case 1:
                         intent = new Intent(mView.getContext(), cls);
-                        intent.putExtra("requestType", 3);
+                        intent.putExtra("request_type", 3);
                         intent.putExtra("receiver", 1);
                         mView.getContext().startActivity(intent);
                         break;
@@ -143,20 +143,20 @@ public class MessageBarAdapter extends RecyclerView.Adapter<MessageBarAdapter.Vi
                 switch (mPosition) {
                     case 0:
                         intent = new Intent(context, finalCls);
-                        intent.putExtra("requestType", 0);
+                        intent.putExtra("request_type", 0);
                         //intent.putExtra("self", context.getSharedPreferences("UserProfile", MODE_PRIVATE).getInt("self", 0));
                         intent.putExtra("receiver", 0);
                         context.startActivity(intent);
                     case 1:
                         intent = new Intent(context, finalCls);
-                        intent.putExtra("requestType", 3);
+                        intent.putExtra("request_type", 3);
                         //intent.putExtra("self", context.getSharedPreferences("UserProfile", MODE_PRIVATE).getInt("self", 0));
                         intent.putExtra("groupId", 1);
                         context.startActivity(intent);
                         break;
                     case 2:
                         intent = new Intent(context, finalCls);
-                        intent.putExtra("requestType", 3);
+                        intent.putExtra("request_type", 3);
                         context.startActivity(intent);
                         break;
                 }

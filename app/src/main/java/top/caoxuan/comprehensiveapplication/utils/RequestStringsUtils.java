@@ -19,7 +19,7 @@ public class RequestStringsUtils {
     }
 
     public void setRequestType(int requestType) {
-        addRequestCouple("requestType", requestType);
+        addRequestCouple("request_type", requestType);
     }
 
     public void setAccountType(int accountType) {
@@ -53,9 +53,13 @@ public class RequestStringsUtils {
     public void setCursor(int cursor) {
         addRequestCouple("cursor", cursor);
     }
+
+    public void setToken(int token) {
+        addRequestCouple("token", token);
+    }
     /*public static void main(String[] args) {
         RequestStringsUtils rst = new RequestStringsUtils();
-        rst.addRequestCouple("requestType", 1);
+        rst.addRequestCouple("request_type", 1);
         rst.addRequestCouple("result", 2);
         System.out.println(rst.getRequestCouples());
     }*/

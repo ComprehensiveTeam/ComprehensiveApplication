@@ -2,6 +2,7 @@ package top.caoxuan.comprehensiveapplication.task;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import top.caoxuan.comprehensiveapplication.SingleSocket;
+import top.caoxuan.comprehensiveapplication.data.bean.IError;
 import top.caoxuan.comprehensiveapplication.data.bean.User;
 import top.caoxuan.comprehensiveapplication.listener.SignInListener;
 import top.caoxuan.comprehensiveapplication.utils.AnalyseReturnData;
@@ -22,6 +24,8 @@ public class SignInTask extends AsyncTask<Object, Integer, Integer> implements B
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private int self;
+    private int token;
+    IError iError;
 
     public SignInTask(SignInListener listener) {
         this.listener = listener;
@@ -42,14 +46,15 @@ public class SignInTask extends AsyncTask<Object, Integer, Integer> implements B
             out.writeUTF(rsu.getRequestCouples());
             DataInputStream in = new DataInputStream(socket.getInputStream());
             while (true) {
-                String resultData = in.readUTF();
-
-                String requestType = AnalyseReturnData.opt(resultData, "requestType");
+                String returnData = in.readUTF();
+                Log.d("cxDebug", "SignInTask" + returnData);
+                String requestType = AnalyseReturnData.opt(returnData, "request_type");
                 if ("1".equals(requestType)) {
-                    String result = AnalyseReturnData.opt(resultData, "result");
-                    String error = AnalyseReturnData.opt(resultData, "error");
+                    String result = AnalyseReturnData.opt(returnData, "result");
+                    String error = AnalyseReturnData.opt(returnData, "error");
                     if ("1".equals(result) && "99999".equals(error)) {
-                        self = Integer.parseInt(AnalyseReturnData.opt(resultData, "uid"));
+                        self = Integer.parseInt(AnalyseReturnData.opt(returnData, "uid"));
+                        token = Integer.parseInt(AnalyseReturnData.opt(returnData, "token"));
                         /**考虑到多用户登录问题，要在SignInActivity中创建一个与uid相关的SharePreference文件*/
                         /*editor.putInt("Self",uid);
                         Log.d("cxDebug","uid="+uid);
@@ -57,6 +62,7 @@ public class SignInTask extends AsyncTask<Object, Integer, Integer> implements B
                         return TYPE_SUCCESS;
                     }
                 } else if ("4".equals(requestType)) {
+                    iError = new IError(TYPE_LOGIN, AnalyseReturnData.opt(returnData, "error"));
                     return TYPE_FAILED;
                 }
                 return TYPE_FAILED;
@@ -72,10 +78,11 @@ public class SignInTask extends AsyncTask<Object, Integer, Integer> implements B
     protected void onPostExecute(Integer integer) {
         switch (integer) {
             case TYPE_SUCCESS:
-                listener.onSuccess(self);
+                Log.d("cxDebug", "SignInTask:TYPE_SUCCESS");
+                listener.onSuccess(self, token);
                 break;
             case TYPE_FAILED:
-                listener.onFailed();
+                listener.onFailed(iError);
                 break;
             default:
                 break;
