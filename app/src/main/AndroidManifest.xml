@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.comprehensiveapplication">
+    package="top.caoxuan.comprehensiveapplication">
     <!--
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,18 +18,28 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!--安装app-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/cx"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/cx"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".ChatWithFriendUIActivity" />
+
+        <service
+            android:name=".service.DownloadIntentService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ChatGroupUIActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".BaseActivity" />
 
         <service
             android:name=".service.CoreService"
@@ -37,10 +47,11 @@
             android:exported="true" />
 
         <activity
-            android:name=".activity.SignUpActivity"
-            android:label="注册" />
+            android:name=".SignUpActivity"
+            android:label="注册"
+            android:launchMode="singleInstance" />
         <activity
-            android:name=".activity.SignInActivity"
+            android:name=".SignInActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -48,10 +59,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--<activity android:name=".deprecated.MyLoginActivity" />-->
-        <activity android:name=".activity.ChatUIActivity" />
+        </activity> <!-- <activity android:name=".deprecated.MyLoginActivity" /> -->
+        <activity android:name=".ChatUIActivity" />
 
         <service
             android:name=".service.UpdateIntentService"
@@ -61,7 +70,7 @@
             android:name="com.amap.api.v2.apikey"
             android:value="e13578871c5deb193ed73c920205c3ff" />
 
-        <activity android:name=".activity.LBSActivity" />
+        <activity android:name=".LBSActivity" />
 
         <service
             android:name=".service.DownloadService"
@@ -72,24 +81,25 @@
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleInstance" />
 
         <service
             android:name="com.amap.api.location.APSService"
             android:foregroundServiceType="location"
             tools:targetApi="q" />
+
         <provider
-            android:authorities="com.example.comprehensiveapplication.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="top.caoxuan.comprehensiveapplication.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

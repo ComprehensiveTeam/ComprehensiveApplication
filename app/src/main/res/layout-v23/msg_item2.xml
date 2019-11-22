@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/left_photo_layout"
+            android:id="@+id/left_avatar_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:id="@+id/left_photo"
+                android:id="@+id/left_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"
@@ -29,17 +29,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/left_avatar_layout"
+            android:id="@+id/left_nickname_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/left_photo_layout">
+            app:layout_constraintLeft_toRightOf="@id/left_avatar_layout">
 
             <TextView
-                android:id="@+id/avatar"
+                android:id="@+id/left_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,14 +47,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/message_left"
-            app:layout_constraintLeft_toRightOf="@+id/left_photo_layout"
-            app:layout_constraintTop_toBottomOf="@+id/left_avatar_layout">
+            app:layout_constraintLeft_toRightOf="@+id/left_avatar_layout"
+            app:layout_constraintTop_toBottomOf="@+id/left_nickname_layout">
 
             <TextView
                 android:id="@+id/left_msg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:maxWidth="200dp"
                 android:textColor="#fff" />
@@ -67,14 +68,14 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/right_photo_layout"
+            android:id="@+id/right_avatar_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
             <ImageView
-                android:id="@+id/right_photo"
+                android:id="@+id/right_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"
@@ -83,25 +84,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/right_avatar_layout"
+            android:id="@+id/right_nickname_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/right_photo_layout">
+            app:layout_constraintRight_toLeftOf="@+id/right_avatar_layout">
 
             <TextView
-                android:id="@+id/right_avatar"
+                android:id="@+id/right_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/right_message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/right_avatar_layout"
-            app:layout_constraintRight_toLeftOf="@+id/right_photo_layout"
+            app:layout_constraintTop_toBottomOf="@id/right_nickname_layout"
+            app:layout_constraintRight_toLeftOf="@+id/right_avatar_layout"
 
             android:background="@drawable/message_right">
 
@@ -109,9 +110,9 @@
                 android:id="@+id/right_msg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
+                android:layout_weight="1"
                 android:maxWidth="200dp" />
         </LinearLayout>
 

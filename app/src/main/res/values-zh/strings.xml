@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">古灵</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">昵称</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_add">添加</string>
+    <string name="action_scan">扫一扫</string>
+
+    <string name="menu_home">主页</string>
+    <string name="menu_gallery">画廊</string>
+    <string name="menu_slideshow">幻灯片</string>
+    <string name="menu_tools">工具</string>
+    <string name="menu_share">分享</string>
+    <string name="menu_send">发送</string>
+    <string name="title_activity_login">登录</string>
+    <string name="prompt_email">电子邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录或注册</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="welcome">"欢迎！"</string>
+    <string name="invalid_username">无效用户名</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <!--activity_sign_in.xml-->
+    <string name="account">账号</string>
+    <string name="password">密码</string>
+    <string name="remember_password">记住密码</string>
+    <string name="sign_in">登录</string>
+    <string name="forgot_password">忘记密码</string>
+    <string name="vertical_separator">"  |  "</string>
+    <string name="sign_up">用户注册</string>
+
+    <!--activity_sign_up.xml-->
+    <string name="sign_up_by_phone">手机注册</string>
+    <string name="sign_up_by_email">邮箱注册</string>
+    <string name="menu_settings">设置</string>
+</resources>
